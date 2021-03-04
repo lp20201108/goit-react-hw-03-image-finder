@@ -20,12 +20,12 @@ const ImageGalleryItem = ({ webformatURL,
     )
 }
 
-ImageGalleryItem.propTypes = {
-    webformatURL: PropTypes.string.isRequired,
-    largeImageURL: PropTypes.string.isRequired,
-    tags: PropTypes.string,
-    onSetImgInfo: PropTypes.func.isRequired,
-    openModal: PropTypes.func.isRequired,
-};
+// ImageGalleryItem.propTypes = {
+//     webformatURL: PropTypes.string.isRequired,
+//     largeImageURL: PropTypes.string.isRequired,
+//     tags: PropTypes.string,
+//     onSetImgInfo: PropTypes.func.isRequired,
+//     openModal: PropTypes.func,
+// };
 
 export default ImageGalleryItem;

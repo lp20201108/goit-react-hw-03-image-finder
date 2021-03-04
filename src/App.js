@@ -90,7 +90,6 @@ export default class App extends Component {
           <h1>We are sorry! Something went wrong.Please, try again!</h1>
         )}
         <Searchbar onSubmit={this.onChangeQuery} />
-        <ImageGallery images={images} />
         <Loader
           className={styles.loader}
           visible={isLoading}
@@ -103,7 +102,7 @@ export default class App extends Component {
 
         <ImageGallery images={images} setLargeImg={this.setLargeImg} />
 
-        {images.length ? <Button onLoadMore={this.fetchImages} /> : ""}
+        {!!images.length && <Button onLoadMore={this.fecthImages} />}
 
         {/* <button type="button" onClick={this.toggleModal}>
           show modal

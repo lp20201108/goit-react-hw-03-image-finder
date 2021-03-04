@@ -6,14 +6,14 @@ const Button = ({ onLoadMore }) => {
     return (
         <button className={styles.Button}
             type='button'
-            onClick={()=>onLoadMore()}>
+            onClick={onLoadMore}>
             More images
         </button>
     )
 }
 
 Button.propTypes = {
-    onLoadMore: PropTypes.func.isRequired,
+    onLoadMore: PropTypes.func,
 };
 
 export default Button;

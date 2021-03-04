@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import Loader from "react-loader-spinner";
-import axios from "axios";
-import styles from "./App.css";
+import styles from "./App.module.css";
 import imagesApi from "./services/imagesApi";
 import Searchbar from "./components/Searchbar";
-import ImageGallery from "./components/ImageGallery/ImageGallery";
-
-// const KEY = "20207250-3e42ced94c2caff6bd60b0b02";
-// axios.defaults.baseURL = "https://pixabay.com/api";
+import Modal from "./components/Modal";
+import Button from "./components/Button";
+import ImageGallery from "./components/ImageGallery";
 
 export default class App extends Component {
   state = {
@@ -16,6 +14,9 @@ export default class App extends Component {
     searchQuery: "",
     isLoading: false,
     error: null,
+    showModal: false,
+    largeImageURL: "",
+    imgTags: "",
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -29,7 +30,6 @@ export default class App extends Component {
       searchQuery: query,
       currentPage: 1,
       images: [],
-      largeImageUrl: "",
       error: null,
     });
   };
@@ -45,10 +45,6 @@ export default class App extends Component {
     };
 
     imagesApi(options)
-      // axios
-      //   .get(
-      //     `/?q=${searchQuery}&page=${currentPage}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`
-      //   )
       .then((images) => {
         this.setState((prevState) => ({
           images: [...prevState.images, ...images],
@@ -66,17 +62,30 @@ export default class App extends Component {
     });
   };
 
-  setImgInfo = ({ target }) => {
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
+
+  setLargeImg = ({ target }) => {
     const { largeimageurl, tags } = target.dataset;
     this.setState({ largeImageURL: largeimageurl, imgTags: tags });
     this.toggleModal();
   };
 
   render() {
-    const { images, isLoading, error, largeImageURL, imgTags } = this.state;
+    const {
+      images,
+      isLoading,
+      error,
+      largeImageURL,
+      imgTags,
+      showModal,
+    } = this.state;
 
     return (
-      <div className={styles.appContainer}>
+      <div className={styles.App}>
         {error && (
           <h1>We are sorry! Something went wrong.Please, try again!</h1>
         )}
@@ -92,14 +101,18 @@ export default class App extends Component {
           width={80}
         />
 
-        <ImageGallery images={images} />
+        <ImageGallery images={images} setLargeImg={this.setLargeImg} />
 
-        {images.length ? (
-          <button type="button" onClick={this.fecthImages}>
-            Load more
-          </button>
-        ) : (
-          ""
+        {images.length ? <Button onLoadMore={this.fetchImages} /> : ""}
+
+        {/* <button type="button" onClick={this.toggleModal}>
+          show modal
+        </button> */}
+
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
+            <img src={largeImageURL} alt={imgTags} />
+          </Modal>
         )}
       </div>
     );

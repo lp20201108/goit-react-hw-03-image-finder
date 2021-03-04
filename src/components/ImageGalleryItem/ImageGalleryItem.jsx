@@ -1,15 +1,21 @@
 import styles from "./ImageGalleryItem.module.css";
 import PropTypes from 'prop-types';
+import React from 'react';
 
 const ImageGalleryItem = ({ webformatURL,
     largeImageURL,
     tags = '',
-    onSetImgInfo,
+    setLargeImg,
 }) => {
 
     return (
         <li className={styles.ImageGalleryItem}>
-            <img src={webformatURL} alt={tags} className={styles.ImageGalleryItemImage} data-largeimageurl={largeImageURL} data-tags={tags} onClick={onSetImgInfo} />
+            <img src={webformatURL}
+                alt={tags}
+                className={styles.ImageGalleryItemImage}
+                data-largeimageurl={largeImageURL}
+                data-tags={tags}
+                onClick={setLargeImg} />
         </li>
     )
 }

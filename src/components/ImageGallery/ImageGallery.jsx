@@ -1,18 +1,17 @@
 import styles from './ImageGallery.module.css';
-import axios from 'axios';
 import React from 'react'
-import PropTypes from 'prop-types';
 import ImageGalleryItem from '../ImageGalleryItem'
 
-const ImageGallery = ({images}) => {
+const ImageGallery = ({ images, setLargeImg }) => {
   return (
      <ul className={styles.ImageGallery}>
-            {images.map(({ webformatURL, largeImageURL, tags, id }) => (
+            {images.map(({ webformatURL, tags,largeImageURL, id }) => (
               <ImageGalleryItem
                   key={id}
                     webformatURL={webformatURL}
                     largeImageURL={largeImageURL}
                     tags={tags}
+                 setLargeImg={setLargeImg}
               />
             ))}
         </ul>
